@@ -18,7 +18,17 @@
         </div>
     </div>
 
-    <main>
+    <!-- Video Intro Overlay -->
+    <div id="video-intro" class="video-intro-container">
+        <video id="promo-video" class="promo-video" playsinline muted>
+            <source src="muromachi_premium.mp4" type="video/mp4">
+        </video>
+        <div class="video-overlay">
+            <button id="enter-btn" class="enter-btn">ENTER ARCHIVE</button>
+        </div>
+    </div>
+
+    <main id="main-content" class="is-hidden">
         <!-- Hero Section -->
         <section id="hero" class="hero">
             <div class="hero-bg"></div>
@@ -44,6 +54,23 @@
                     </div>
                     <div class="visual-block decoration-gold">
                         <div class="floating-kanji">下剋上</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Economy Section: The Rise of 'Za' and Money -->
+        <section id="economy" class="content-section">
+            <div class="container">
+                <div class="grid reverse">
+                    <div class="visual-block decoration-gold">
+                        <div class="floating-kanji" style="font-size: 4rem;">座・貨幣</div>
+                        <div class="data-reveal">1336-1573</div>
+                    </div>
+                    <div class="text-block">
+                        <span class="label">ECONOMIC REVOLUTION</span>
+                        <h3 class="section-title">貨幣経済と「座」の誕生</h3>
+                        <p>農業生産力の向上により、二毛作が普及。モノが余り、交換が始まり、経済が加速しました。「座」と呼ばれる特権的な同業者組合が生まれ、京都の町衆（まちしゅう）が新しい文化の担い手となっていきます。現代のマーケットの原型がここにあります。</p>
                     </div>
                 </div>
             </div>
@@ -102,11 +129,17 @@
             </div>
         </section>
 
-        <!-- Footer / Closing -->
         <footer>
             <div class="container">
-                <p class="ending-text">室町時代は、終わっていない。<br>私たちの美意識の中に、今も息づいている。</p>
-                <div class="footer-logo">室町 MUROMACHI</div>
+                <div class="footer-grid">
+                    <div class="footer-info">
+                        <div class="footer-logo">室町 MUROMACHI</div>
+                        <p>現代の日本人が持つ「美意識」の起源を<br>デジタルの光で再解釈する。</p>
+                    </div>
+                    <div class="footer-links">
+                        <p class="ending-text">室町時代は、終わっていない。<br>私たちの美意識の中に、今も息づいている。</p>
+                    </div>
+                </div>
                 <p class="copyright">&copy; 2026 Muromachi Digital Archive</p>
             </div>
         </footer>

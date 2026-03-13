@@ -1,13 +1,36 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // 1. Loader Removal
+    // 1. Loader & Intro Logic
     const loader = document.getElementById('loader');
+    const videoIntro = document.getElementById('video-intro');
+    const promoVideo = document.getElementById('promo-video');
+    const enterBtn = document.getElementById('enter-btn');
+    const mainContent = document.getElementById('main-content');
+
     window.addEventListener('load', () => {
         setTimeout(() => {
             loader.style.opacity = '0';
             setTimeout(() => {
                 loader.style.display = 'none';
+                
+                // Start Video after loader
+                promoVideo.play().catch(e => console.log("Auto-play blocked, waiting for interaction"));
+                
+                // Show Enter button slightly after
+                setTimeout(() => {
+                    enterBtn.classList.add('visible');
+                }, 1500);
             }, 1000);
         }, 800);
+    });
+
+    enterBtn.addEventListener('click', () => {
+        videoIntro.classList.add('video-fade-out');
+        mainContent.classList.remove('is-hidden');
+        
+        // Ensure entrance animations for main content trigger
+        setTimeout(() => {
+            document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+        }, 100);
     });
 
     // 2. Intersection Observer for Fade-Up animations
@@ -59,7 +82,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // 4. Custom Hover Interaction for Visual Blocks
+    // 4. Cursor Glow Effect / Parallax
     const visualBlocks = document.querySelectorAll('.visual-block');
     visualBlocks.forEach(block => {
         block.addEventListener('mousemove', (e) => {
@@ -67,18 +90,36 @@ document.addEventListener('DOMContentLoaded', () => {
             const x = e.clientX - rect.left;
             const y = e.clientY - rect.top;
             
+            // Background glow
+            block.style.background = `radial-gradient(circle at ${x}px ${y}px, rgba(212, 175, 55, 0.15) 0%, var(--zen-ink) 70%)`;
+
             const kanji = block.querySelector('.floating-kanji');
             if (kanji) {
-                const moveX = (x / rect.width - 0.5) * 40;
-                const moveY = (y / rect.height - 0.5) * 40;
+                const moveX = (x / rect.width - 0.5) * 60;
+                const moveY = (y / rect.height - 0.5) * 60;
                 kanji.style.transform = `translate(${moveX}px, ${moveY}px)`;
+                kanji.style.opacity = '0.6';
             }
         });
 
         block.addEventListener('mouseleave', () => {
+            block.style.background = 'var(--zen-ink)';
             const kanji = block.querySelector('.floating-kanji');
             if (kanji) {
                 kanji.style.transform = `translate(0, 0)`;
+                kanji.style.opacity = '0.15';
+            }
+        });
+    });
+
+    // 5. Section Background Shift on Scroll
+    window.addEventListener('scroll', () => {
+        const sections = document.querySelectorAll('.content-section');
+        sections.forEach(sec => {
+            const rect = sec.getBoundingClientRect();
+            if (rect.top < window.innerHeight && rect.bottom > 0) {
+                const shift = (rect.top / window.innerHeight) * 50;
+                sec.style.backgroundPosition = `center ${shift}px`;
             }
         });
     });
