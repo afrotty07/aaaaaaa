@@ -112,7 +112,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // 5. Section Background Shift on Scroll
+    // 5. Section Background Shift on Scroll & Scroll Progress
     window.addEventListener('scroll', () => {
         const sections = document.querySelectorAll('.content-section');
         sections.forEach(sec => {
@@ -122,6 +122,29 @@ document.addEventListener('DOMContentLoaded', () => {
                 sec.style.backgroundPosition = `center ${shift}px`;
             }
         });
+
+        // Scroll Progress
+        const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+        const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        const scrolled = (winScroll / height) * 100;
+        document.getElementById('scroll-progress-bar').style.width = scrolled + "%";
+    });
+
+    // 6. Timeline Animation
+    const timelineObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.opacity = '1';
+                entry.target.style.transform = 'translateY(0)';
+            }
+        });
+    }, { threshold: 0.2 });
+
+    document.querySelectorAll('.timeline-item').forEach(el => {
+        el.style.opacity = '0';
+        el.style.transform = 'translateY(40px)';
+        el.style.transition = 'all 1s cubic-bezier(0.16, 1, 0.3, 1)';
+        timelineObserver.observe(el);
     });
 
     // 5. Smooth Scroll
